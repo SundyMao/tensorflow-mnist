@@ -25,6 +25,10 @@
                 root {project path}/tensorflow-mnist;
                 index index.html;
             }
+<<<<<<< HEAD
+=======
+			
+>>>>>>> 7b7e99b44422c6222fc26fc1be875aceb50455fe
         if do not use nginx, please change main.py:
             @app.route('/api', methods=['POST'])  ==>  @app.route('/mnist/api', methods=['POST'])
             @app.route('/') ==> @app.route('/mnist')

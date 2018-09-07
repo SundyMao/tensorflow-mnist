@@ -3,4 +3,4 @@ venv
 node_modules
 mnist/data
 mnist/MNIST_data
-error.log
+/*.log
