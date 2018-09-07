@@ -1,0 +1,13 @@
+nohup: ignoring input
+ * Serving Flask app "main" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: on
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+ * Restarting with stat
+ * Debugger is active!
+ * Debugger PIN: 190-874-936
+127.0.0.1 - - [07/Sep/2018 06:48:58] "[37mGET / HTTP/1.0[0m" 200 -
+127.0.0.1 - - [07/Sep/2018 06:48:58] "[37mPOST /api HTTP/1.0[0m" 200 -
+127.0.0.1 - - [07/Sep/2018 06:48:59] "[37mPOST /api HTTP/1.0[0m" 200 -
