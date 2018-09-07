@@ -3,6 +3,7 @@ import tensorflow as tf
 from flask import Flask, jsonify, render_template, request
 
 from mnist import model
+from mnist import dnn
 
 x = tf.placeholder("float", [None, 784])
 sess = tf.Session()
@@ -19,11 +20,18 @@ with tf.variable_scope("convolutional"):
 saver = tf.train.Saver(variables)
 saver.restore(sess, "mnist/data/convolutional.ckpt")
 
+with tf.variable_scope("dnn"):
+    y2 = dnn.forward(x, None)
+saver.restore(sess, "mnist/data/dnn.ckpt")
+
 def regression(input):
     return sess.run(y1, feed_dict={x: input}).flatten().tolist()
 
 def convolutional(input):
     return sess.run(y2, feed_dict={x: input, keep_prob: 1.0}).flatten().tolist()
+
+def dnn(input):
+    return sess.run(y3, feed_dict={x:input}).flatten().tolist()
 
 # webapp
 app = Flask(__name__)
@@ -42,5 +50,5 @@ def main():
 
 if __name__ == '__main__':
     app.debug = True
-    app.run(host='0.0.0.0', port=5000)
+    app.run(host='0.0.0.0', port=5001)
 
