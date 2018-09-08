@@ -1,5 +1,9 @@
 import tensorflow as tf
 
+INPUT_NODE = 784
+OUTPUT_NODE = 10
+LAYER1_NODE = 500
+MOVING_AVERAGE_DECAY = 0.99
 
 # Softmax Regression Model
 def regression(x):
@@ -7,7 +11,6 @@ def regression(x):
     b = tf.Variable(tf.zeros([10]), name="b")
     y = tf.nn.softmax(tf.matmul(x, W) + b)
     return y, [W, b]
-
 
 # Multilayer Convolutional Network
 def convolutional(x, keep_prob):
@@ -48,3 +51,24 @@ def convolutional(x, keep_prob):
     b_fc2 = bias_variable([10])
     y = tf.nn.softmax(tf.matmul(h_fc1_drop, W_fc2) + b_fc2)
     return y, [W_conv1, b_conv1, W_conv2, b_conv2, W_fc1, b_fc1, W_fc2, b_fc2]
+
+#Deep Neural Network
+def dnn(x, regularizer):
+    def get_weight(shape, regularizer):
+        w = tf.Variable(tf.truncated_normal(shape, stddev=0.1))
+        if regularizer != None: tf.add_to_collection('losses', tf.contrib.layers.l2_regularizer(regularizer)(w))
+        return w
+    
+    def get_bias(shape):
+        b = tf.Variable(tf.zeros(shape))
+        return b
+
+    w1 = get_weight([INPUT_NODE, LAYER1_NODE], regularizer)
+    b1 = get_bias([LAYER1_NODE])
+    y1 = tf.nn.relu(tf.matmul(x, w1) + b1)
+
+    w2 = get_weight([LAYER1_NODE, OUTPUT_NODE], regularizer)
+    b2 = get_bias([OUTPUT_NODE])
+    y = tf.matmul(y1, w2) + b2
+    return y, [w1, b1, w2, b2]
+
